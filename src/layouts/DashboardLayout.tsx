@@ -1,6 +1,14 @@
-import { Outlet, Link } from 'react-router';
+import { Outlet, Link, useNavigate } from 'react-router';
 
 const DashboardLayout = () => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        navigate('/auth');
+    };
+
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col">
             {/* Header */}
@@ -14,9 +22,12 @@ const DashboardLayout = () => {
                         <Link to="add-foods" className="hover:underline">
                             Add Foods
                         </Link>
-                        <Link to="/auth" className="hover:underline">
+                        <button
+                            onClick={handleLogout}
+                            className="hover:underline bg-transparent border-none text-white cursor-pointer"
+                        >
                             Logout
-                        </Link>
+                        </button>
                     </nav>
                 </div>
             </header>

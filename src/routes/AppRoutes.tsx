@@ -8,6 +8,7 @@ import SignUp from '../pages/auth/signUp';
 import FoodList from '../pages/Dashboard/FoodList';
 import AddFoods from '../pages/Dashboard/AddFoods';
 import EditFoods from '../pages/Dashboard/EditFoods';
+import ProtectedRoute from '../components/ProtectedRoute';
 
 const AppRoutes = () => {
     return (
@@ -21,10 +22,12 @@ const AppRoutes = () => {
                 </Route>
 
                 {/* Dashboard Routes */}
-                <Route path="/dashboard" element={<DashboardLayout />}>
-                    <Route index element={<FoodList />} />
-                    <Route path="add-foods" element={<AddFoods />} />
-                    <Route path="edit-foods/:id" element={<EditFoods />} />
+                <Route path="/dashboard" element={<ProtectedRoute />}>
+                    <Route element={<DashboardLayout />}>
+                        <Route index element={<FoodList />} />
+                        <Route path="add-foods" element={<AddFoods />} />
+                        <Route path="edit-foods/:id" element={<EditFoods />} />
+                    </Route>
                 </Route>
 
                 {/* 404 Page */}

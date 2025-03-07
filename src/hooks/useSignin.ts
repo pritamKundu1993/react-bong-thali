@@ -15,9 +15,17 @@ export const useAuth = () => {
 
             console.log('API Response:', response); // Debugging
 
-            if (response?.status === 'success') {
+            if (response?.status === 'success' && response.token) {
+                // Store token and user data
+                localStorage.setItem('token', response.token);
+                localStorage.setItem(
+                    'user',
+                    JSON.stringify({ id: response.user_id, name: response.activeUser })
+                );
+
                 toast.success(response.message || 'Login Successful! ✅');
                 setError(null);
+
                 navigate('/dashboard');
             } else {
                 toast.error(response.message || 'Login failed ❌');
